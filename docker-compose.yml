@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-dbserver
+    ports:
+      - "27017:27017"
+
+  yourapp:
+    build: .
+    container_name: devops-app
+    depends_on:
+      - mongodb

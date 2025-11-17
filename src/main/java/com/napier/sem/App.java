@@ -9,8 +9,17 @@ public class App
 {
     public static void main(String[] args)
     {
-        // Connect to MongoDB on local system - we're using port 27000
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        // Get MongoDB host from environment variable or use default
+        String mongoHost = System.getenv("MONGODB_HOST");
+        if (mongoHost == null || mongoHost.isEmpty()) {
+            mongoHost = "mongo-dbserver"; // default for Docker Compose
+        }
+
+        System.out.println("Connecting to MongoDB at: " + mongoHost + ":27017");
+
+        // Connect to MongoDB - configurable host
+        MongoClient mongoClient = new MongoClient(mongoHost, 27017);
+
         // Get a database - will create when we use it
         MongoDatabase database = mongoClient.getDatabase("mydb");
         // Get a collection from the database
@@ -26,5 +35,8 @@ public class App
         // Check document in collection
         Document myDoc = collection.find().first();
         System.out.println(myDoc.toJson());
+
+        // Close the connection
+        mongoClient.close();
     }
 }
