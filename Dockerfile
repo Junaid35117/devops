@@ -1,4 +1,9 @@
 FROM amazoncorretto:17
-COPY ./target/seMethods-1.0-SNAPSHOT.jar /tmp
+
+# Copy the new release jar
+COPY ./target/Coursework-0.1.0.2.jar /tmp/app.jar
+
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "seMethods-1.0-SNAPSHOT.jar"]
+
+# Run the app
+ENTRYPOINT ["java", "-jar", "app.jar"]
