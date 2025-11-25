@@ -1,9 +1,9 @@
 FROM amazoncorretto:17
 
-# Copy the new release jar
-COPY ./target/seMethods-0.1.0.2.jar /tmp/app.jar
+# Copy the fat jar into the container
+COPY ./target/seMethods-0.1.0.2-jar-with-dependencies.jar /tmp/app.jar
 
 WORKDIR /tmp
 
-# Run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the JAR
+CMD ["java", "-jar", "app.jar"]
