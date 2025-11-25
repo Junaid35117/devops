@@ -1,0 +1,14 @@
+services:
+  mongo-dbserver:
+    image: mongo:latest
+    container_name: mongo-dbserver
+    ports:
+      - "27017:27017"
+
+  app:
+    build: .
+    container_name: myapp
+    depends_on:
+      - mongo-dbserver
+    environment:
+      MONGO_URL: mongodb://mongo-dbserver:27017

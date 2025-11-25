@@ -1,4 +1,10 @@
 FROM amazoncorretto:17
-COPY ./target/classes/com /tmp/com
+
+# Copy the fat jar into the container
+COPY ./target/seMethods-0.1.0.2-jar-with-dependencies.jar /tmp/app.jar
+
 WORKDIR /tmp
-ENTRYPOINT ["java", "com.napier.sem.App"]
+#scvsoh
+
+# Run the JAR
+CMD ["java", "-jar", "app.jar"]
