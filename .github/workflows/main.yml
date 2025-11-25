@@ -16,18 +16,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Docker (Docker is already installed on GitHub runners)
+      # 2. Set up Java 17
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Build Maven project
+      - name: Build Maven project
+        run: mvn clean package
+
+      # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 3. Build Docker image (multi-stage build will compile the JAR)
+      # 5. Build Docker image
       - name: Build Docker Image
         run: docker build -t devopsimage .
 
-      # 4. Run container detached
+      # 6. Run container detached
       - name: Run Docker container
         run: docker run --rm --name devopscontainer -d devopsimage
 
-      # 5. Show logs from the container
+      # 7. Show logs from the container
       - name: View container logs
         run: docker logs devopscontainer
