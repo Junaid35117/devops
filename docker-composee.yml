@@ -1,14 +1,12 @@
 version: '3'
 services:
+  # Application Dockerfile is in same folder which is .
+  app:
+    build: .
+
+  # db is is db folder
   db:
-    build: ./db
-    container_name: world-db
+    build: db/.
     restart: always
     ports:
       - "33060:3306"
-
-  app:
-    build: .
-    container_name: world-app
-    depends_on:
-      - db
