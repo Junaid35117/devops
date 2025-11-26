@@ -1,0 +1,3 @@
+[submodule "db/world_sql"]
+	path = db/world_sql
+	url = https://github.com/Junaid35117/worlddb
