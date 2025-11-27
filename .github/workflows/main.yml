@@ -1,35 +1,22 @@
-name: Build and Run WorldDB App
-
-on:
-  push:
-    branches:
-      - master
-      - develop
-      - release/*
+name: A workflow for my Hello World App
+on: push
 
 jobs:
   build:
-    name: Build and Run App with MySQL
+    name: Hello world action
     runs-on: ubuntu-22.04
-
     steps:
-      # 1. Checkout the code including submodules
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      # 2. Set up Java 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
-
-      # 3. Build the fat JAR with Maven
+          distribution: 'adopt'
       - name: Build with Maven
-        run: mvn clean package
-
-      # 4. Run Docker Compose (app + worlddb)
-      - name: Run Docker Compose
+        run: mvn package
+      - name: Run docker compose
         run: docker compose up --abort-on-container-exit
+
